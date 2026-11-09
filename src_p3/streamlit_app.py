@@ -52,7 +52,11 @@ if st.button("Calcular Predicción"):
                 
                 # Obtener el valor bruto que devuelve la API (ej: 2.857)
                 # (Ajusta la clave 'prediction' si tu FastAPI usa otro nombre de propiedad)
-                valor_bruto = resultado.get("prediction", resultado)
+                #  CÓDIGO CORREGIDO: Extraemos el valor de la clave 'MedHouseVal'
+                if isinstance(resultado, dict):
+                    valor_bruto = resultado.get("MedHouseVal", list(resultado.values())[0])
+                else:
+                    valor_bruto = resultado
                 st.info(f"Valor bruto devuelto por la API: {valor_bruto}")
                 
                 # EJERCICIO C: Transformación a dólares reales (* 100,000) y formateo
